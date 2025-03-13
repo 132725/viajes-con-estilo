@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viajes con Estilo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background: #007bff; color: white; padding: 20px; font-size: 24px; }
+        section { padding: 20px; }
+        button { background: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        button:hover { background: #218838; }
+        footer { margin-top: 20px; padding: 10px; background: #333; color: white; }
+        .buscador { margin: 20px auto; padding: 20px; background: white; border-radius: 5px; max-width: 500px; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0; }
+        .ofertas { background: #ffcc00; padding: 20px; margin: 20px 0; }
+        .banner img { width: 100%; height: auto; }
+        .iconos img { width: 50px; margin: 5px; }
+        .oferta img { width: 100%; max-width: 400px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <header>Bienvenidos a Viajes con Estilo</header>
+    
+    <section class="banner">
+        <img src="https://source.unsplash.com/1200x400/?travel" alt="Banner de viajes">
+    </section>
+    
+    <section class="buscador">
+        <h2>Busca tu próximo viaje</h2>
+        <div class="iconos">
+            <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Vuelo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177404.png" alt="Hotel">
+            <img src="https://cdn-icons-png.flaticon.com/512/201/201619.png" alt="Coche">
+        </div>
+        <select id="servicio">
+            <option value="vuelos">Vuelos</option>
+            <option value="hoteles">Alojamientos</option>
+            <option value="paquetes">Paquetes</option>
+            <option value="autos">Autos</option>
+            <option value="traslados">Traslados</option>
+        </select>
+        <input type="text" id="destino" placeholder="Destino o ciudad">
+        <input type="date" id="fechaIda" placeholder="Fecha de ida">
+        <input type="date" id="fechaVuelta" placeholder="Fecha de vuelta">
+        <button onclick="generarPresupuesto()">Generar Presupuesto</button>
+    </section>
+    
+    <section class="ofertas">
+        <h2>Ofertas de la Semana</h2>
+        <div class="oferta">
+            <img src="https://source.unsplash.com/400x300/?beach,travel" alt="Oferta 1">
+            <p>Descuento especial en paquetes a la playa</p>
+        </div>
+        <div class="oferta">
+            <img src="https://source.unsplash.com/400x300/?mountains,travel" alt="Oferta 2">
+            <p>Viaje a la montaña con 20% de descuento</p>
+        </div>
+        <button onclick="window.location.href='https://www.expedia.com'">Ver Más Ofertas</button>
+    </section>
+    
+    <section>
+        <h2>Recibe nuestras ofertas exclusivas</h2>
+        <form>
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Correo Electrónico" required>
+            <button type="submit">Suscribirse</button>
+        </form>
+    </section>
+    
+    <footer>
+        &copy; 2025 Viajes con Estilo - Todos los derechos reservados
+    </footer>
+
+    <script>
+        function generarPresupuesto() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const servicio = document.getElementById('servicio').value;
+            const destino = document.getElementById('destino').value;
+            const fechaIda = document.getElementById('fechaIda').value;
+            const fechaVuelta = document.getElementById('fechaVuelta').value;
+
+            doc.text("Viajes con Estilo", 10, 10);
+            doc.text("Presupuesto de Viaje", 10, 20);
+            doc.text(`Servicio: ${servicio}`, 10, 30);
+            doc.text(`Destino: ${destino}`, 10, 40);
+            doc.text(`Fecha de Ida: ${fechaIda}`, 10, 50);
+            doc.text(`Fecha de Vuelta: ${fechaVuelta}`, 10, 60);
+            doc.text("Forma de Pago: Transferencia, Tarjeta o Efectivo", 10, 70);
+
+            doc.save("Presupuesto_Viaje.pdf");
+        }
+    </script>
+</body>
+</html>
